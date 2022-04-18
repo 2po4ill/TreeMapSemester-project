@@ -1,6 +1,6 @@
 #pragma once
 
-namespace assignment {
+namespace itis {
   struct Node {
     // ключ
     int key;
