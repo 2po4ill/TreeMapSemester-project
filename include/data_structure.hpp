@@ -17,12 +17,14 @@ namespace itis {
     bool Contains(int key) const; //проверка на нахождение узла в дереве
     bool IsEmpty() const; //проверка на очистку дерева
     Node *root() const; //корневой узел
+    bool Balance();
 
    private:
     Node *root_{nullptr}; //объявление корня тримапы
 
     // вспомогательные методы
     void insert(int key, int value, Node *&node);
+    bool balance(Node* node);
     bool remove(int key, Node *&node);
     void clear(Node *node);
     Node *search(int key, Node *node) const;

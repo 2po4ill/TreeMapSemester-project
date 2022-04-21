@@ -59,6 +59,11 @@ namespace itis {
   {
     return root_;
   }
+  bool Treemap::Balance()
+  {
+    balance(root_);
+    return true;
+  }
 
   // вспомогательные методы
 
@@ -160,6 +165,28 @@ namespace itis {
       node = node->left;
     }
     return node;
+  }
+
+  bool Treemap::balance(Node* node)
+  {
+    Node* current = node;
+    if (current->right != nullptr)
+    {
+      Node* var = current;
+      current = current->right;
+      var->right = current->left;
+      current->left = var;
+      balance(current);
+    }
+    else if (current->left != nullptr)
+    {
+      current = current->left;
+      balance(current);
+    }
+    else
+    {
+      return 0;
+    }
   }
 
 }  // namespace itis
