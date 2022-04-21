@@ -1,27 +1,36 @@
 #pragma once
 
 // Заголовочный файл с объявлением структуры данных
+#include "node.hpp"
+#include <optional>
 
 namespace itis {
 
-  // Tip 1: объявите здесь необходимые структуры, функции, константы и прочее
+  struct Treemap final //конструктор тримапы
+  {
+    Treemap() = default;
+    ~Treemap(); //clear
+    void Insert(int key, int value); //добавление узла в дерево
+    bool Remove(int key); //удаление узла по ключу
+    void Clear(); //clear
+    std::optional<int> Search(int key) const; //поиск узла по ключу
+    bool Contains(int key) const; //проверка на нахождение узла в дереве
+    bool IsEmpty() const; //проверка на очистку дерева
+    Node *root() const; //корневой узел
+    bool Balance();
 
-  // Пример: объявление константы времени компиляции в заголовочном файле
-  inline constexpr auto kStringConstant = "Hello, stranger!";
+   private:
+    Node *root_{nullptr}; //объявление корня тримапы
 
-  // Пример: объявление структуры с полями и методами
-  struct MyStructure {
-   public:
-    int size_{0};
-    int capacity_{0};
-    int* data_{nullptr};
-
-    // Tip 2: На начальном этапе разработки структуры данных можете определения методов задавать в
-    // заголовочном файле, как только работа будет завершена, можно будет оставить здесь только объявления.
-
-    int size() const {
-      return size_;
-    }
+    // вспомогательные методы
+    void insert(int key, int value, Node *&node);
+    bool balance(Node* node);
+    bool remove(int key, Node *&node);
+    void clear(Node *node);
+    Node *search(int key, Node *node) const;
+    Node *search_min(Node *node) const;
   };
 
 }  // namespace itis
+
+  // namespace itis
