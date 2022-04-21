@@ -1,22 +1,16 @@
 #pragma once
 
-namespace itis {
-  struct Node {
-    // ключ
+namespace itis
+{
+  struct Node //конструктор узла
+  {
     int key;
-
-    // значение
     int value;
 
-    // левый и правый узлы-потомки
-    Node *left{nullptr};
-    Node *right{nullptr};
+    Node *left{nullptr}; //левый потомок
+    Node *right{nullptr}; //правый потомок
 
-    /**
-     * Создание узла дерева с указанным ключом.
-     * @param key - значение ключа
-     * @param value - хранимые данные
-     */
-    Node(int key, int value) : key{key}, value{value} {}
+
+    Node(int key, int value) : key{key}, value{value} {} //объявление узла и его ключа со значением
   };
 }

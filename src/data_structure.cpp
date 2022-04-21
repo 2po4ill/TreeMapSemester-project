@@ -5,25 +5,30 @@
 
 namespace itis {
 
-  BinarySearchTree::~BinarySearchTree() {
-    BinarySearchTree::Clear();
+  Treemap::~Treemap()
+  {
+    Treemap::Clear();
   }
 
-  void BinarySearchTree::Insert(int key, int value) {
+  void Treemap::Insert(int key, int value)
+  {
     insert(key, value, root_);
   }
 
-  bool BinarySearchTree::Remove(int key) {
+  bool Treemap::Remove(int key)
+  {
     return remove(key, root_);
   }
 
-  void BinarySearchTree::Clear() {
+  void Treemap::Clear()
+  {
     clear(root_);
     root_ = nullptr;
   }
 
-  std::optional<int> BinarySearchTree::Find(int key) const {
-    Node* current = find(key, root_);
+  std::optional<int> Treemap::Search(int key) const
+  {
+    Node* current = search(key, root_);
     if (current == nullptr)
     {
       return std::nullopt;
@@ -31,8 +36,9 @@ namespace itis {
     return current->value;
   }
 
-  bool BinarySearchTree::Contains(int key) const {
-    Node* current = find(key, root_);
+  bool Treemap::Contains(int key) const
+  {
+    Node* current = search(key, root_);
     if (current == nullptr)
     {
       return false;
@@ -40,59 +46,45 @@ namespace itis {
     return true;
   }
 
-  bool BinarySearchTree::IsEmpty() const {
-    if(root_ == nullptr)
+  bool Treemap::IsEmpty() const
+  {
+    if(root_ == nullptr) //тримапа считается пустой, когда ее корневой узел содержит нулевой указатель
     {
       return true;
     }
     return false;
   }
 
-  std::optional<int> BinarySearchTree::FindMin() const {
-    if (root_ == nullptr)
-    {
-      return std::nullopt;
-    }
-    Node* minim = find_min(root_);
-    return minim->value;
-  }
-
-  std::optional<int> BinarySearchTree::FindMax() const {
-    if (root_ == nullptr)
-    {
-      return std::nullopt;
-    }
-    Node* maxim = find_max(root_);
-    return maxim->value;
-  }
-
-  Node* BinarySearchTree::root() const {
+  Node* Treemap::root() const
+  {
     return root_;
   }
 
   // вспомогательные методы
 
-  void BinarySearchTree::insert(int key, int value, Node*& node) {
-    if (node == nullptr)
+  void Treemap::insert(int key, int value, Node*& node)
+  {
+    if (node == nullptr) //если узла нет, то вставляем входящий узел, алгоритм закончил работу
     {
       Node* new_Node = new Node(key, value);
       node = new_Node;
     }
-    if (key < node->key)
+    if (key < node->key) //если ключ входящего узла меньше, узел уходит влево, идет рекурсия
     {
       insert(key, value, node->left);
     }
-    else if (key > node->key)
+    else if (key > node->key) //если ключ входящего узла больше, узел уходит вправо, идет рекурсия
     {
       insert(key, value, node->right);
     }
-    else if (key == node->key)
+    else if (key == node->key) //если ключ входящего узла равен, значение узлов заменяются, алгоритм закончил работу
     {
       node->value = value;
     }
   }
 
-  bool BinarySearchTree::remove(int key, Node*& node) {
+  bool Treemap::remove(int key, Node*& node)
+  {
     if (node == nullptr)
     {
       return false;
@@ -101,23 +93,23 @@ namespace itis {
     {
       if (node->left != nullptr && node->right != nullptr)
       {
-        Node* minim = find_min(node->right);
+        Node* minim = search_min(node->right);
         node->key = minim->key;
         node->value = minim->value;
         return remove(minim->key, node->right);
       }
       else if (node->left != nullptr)
       {
-        Node* lefty = node->left;
+        Node* minchild = node->left;
         delete node;
-        node = lefty;
+        node = minchild;
         return true;
       }
       else
       {
-        Node* righty = node->right;
+        Node* maxchild = node->right;
         delete node;
-        node = righty;
+        node = maxchild;
         return true;
       }
     }
@@ -128,7 +120,8 @@ namespace itis {
     return remove(key, node->right);
   }
 
-  void BinarySearchTree::clear(Node* node) {
+  void Treemap::clear(Node* node)
+  {
     if (node != nullptr)
     {
       clear(node->left);
@@ -137,7 +130,8 @@ namespace itis {
     }
   }
 
-  Node* BinarySearchTree::find(int key, Node* node) const {
+  Node* Treemap::search(int key, Node* node) const
+  {
     if (node == nullptr)
     {
       return nullptr;
@@ -150,16 +144,17 @@ namespace itis {
 
     if (key < node->key)
     {
-      return find(key, node->left);
+      return search(key, node->left);
     }
 
     if (key > node->key)
     {
-      return find(key, node->right);
+      return search(key, node->right);
     }
   }
 
-  Node* BinarySearchTree::find_min(Node* node) const {
+  Node* Treemap::search_min(Node* node) const
+  {
     while (node->left != nullptr)
     {
       node = node->left;
@@ -167,11 +162,4 @@ namespace itis {
     return node;
   }
 
-  Node* BinarySearchTree::find_max(Node* node) const {
-    while(node->right != nullptr)
-    {
-      node = node->right;
-    }
-    return node;
-  }
 }  // namespace itis

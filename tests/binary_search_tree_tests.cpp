@@ -1,4 +1,4 @@
-#include <catch2/catch.hpp>
+#include <catch2/include/catch.hpp>
 
 #include <algorithm>  // find, min_element, max_element
 #include <sstream>    // stringstream

@@ -1,5 +1,5 @@
 function(set_project_warnings project_name)
-    option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" FALSE)
+    option(WARNINGS_AS_ERRORS "Treat compiler warnings as errors" OFF)
 
     set(MSVC_WARNINGS
             /W4     # Baseline reasonable warnings
@@ -71,4 +71,4 @@ function(set_project_warnings project_name)
 
     target_compile_options(${project_name} INTERFACE ${PROJECT_WARNINGS})
 
-endfunction()
+endfunction(set_project_warnings)
