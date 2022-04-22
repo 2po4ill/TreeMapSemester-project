@@ -199,6 +199,7 @@ namespace itis {
       balance(cur);
     }
     root_ = saveroot;
+    return false;
   }
 
 }  // namespace itis

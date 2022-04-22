@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+option(BUILD_TESTS "Build Catch2 unit tests" ON)
+
 # === "Включение" предупреждений компилятора (target) ===
 # Предупреждения полезны тем, что они позволяют обнаружить потенциальные баги в вашем коде.
 
@@ -52,3 +54,10 @@ add_subdirectory(benchmark)
 # === main (target) ===
 add_executable(main main.cpp)
 target_link_libraries(main PRIVATE project_warnings ${PROJECT_NAME})
+
+# Tests
+if (BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(contrib)
+    add_subdirectory(tests)
+endif (BUILD_TESTS)
