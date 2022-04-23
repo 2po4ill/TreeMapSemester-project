@@ -170,36 +170,7 @@ namespace itis {
 
   bool Treemap::balance(Node* node)
   {
-    Node* saveroot = nullptr;
-    int counter = 0;
-    if (node->right != nullptr)
-    {
-      if (node->key == root_->key)
-      {
-        counter ++;
-      }
-      Node* var = node->right;
-      node->right = var->left;
-      var->left = node;
-      node = var;
-      if (counter == 1)
-      {
-        root_ = node;
-        counter = 0;
-      }
-      balance(node);
-    }
-    else if (node->left != nullptr)
-    {
-      if (saveroot == nullptr)
-      {
-        saveroot = root_;
-      }
-      Node* cur = node->left;
-      balance(cur);
-    }
-    root_ = saveroot;
-    return false;
+
   }
 
 }  // namespace itis

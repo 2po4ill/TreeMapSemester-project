@@ -24,6 +24,8 @@ namespace itis {
 
     // вспомогательные методы
     void insert(int key, int value, Node *&node);
+    bool rotateRight(Node* node);
+    bool rotateLeft(Node* node);
     bool balance(Node* node);
     bool remove(int key, Node *&node);
     void clear(Node *node);
