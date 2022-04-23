@@ -6,7 +6,7 @@ using namespace std;
 using namespace itis;
 
 
-int main() {
+int main6() {
   Treemap tree;
   tree.Insert(8, 1);
   tree.Insert(3, 2);

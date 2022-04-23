@@ -97,14 +97,14 @@ namespace itis {
     }
     if (key == node->key)
     {
-      if (node->left != nullptr && node->right != nullptr)
+      if (node->left != nullptr && node->right != nullptr) //если у удаляемого узла есть потомки, то заменяем его на минимальный правый потомок, повторяем рекурсивно
       {
         Node* minim = search_min(node->right);
         node->key = minim->key;
         node->value = minim->value;
         return remove(minim->key, node->right);
       }
-      else if (node->left != nullptr)
+      else if (node->left != nullptr) //если остается только левый узел, то сохраняем его значение, удаляем искомый, заменяем
       {
         Node* minchild = node->left;
         delete node;
@@ -113,13 +113,13 @@ namespace itis {
       }
       else
       {
-        Node* maxchild = node->right;
+        Node* maxchild = node->right; //если остается только правый узел, то сохраняем его значение, удаляем искомый, заменяем
         delete node;
         node = maxchild;
         return true;
       }
     }
-    if (key < node->key)
+    if (key < node->key) // рекурсивно ищем искомый узел
     {
       return remove(key, node->left);
     }
@@ -131,12 +131,12 @@ namespace itis {
     if (node != nullptr)
     {
       clear(node->left);
-      clear(node->right);
+      clear(node->right); //рекурсивно удаляем каждый узел начиная с потомков
       delete node;
     }
   }
 
-  Node* Treemap::search(int key, Node* node) const
+  Node* Treemap::search(int key, Node* node) const //метод рекурсивного поиска узла
   {
     if (node == nullptr)
     {
@@ -170,36 +170,7 @@ namespace itis {
 
   bool Treemap::balance(Node* node)
   {
-    Node* saveroot = nullptr;
-    int counter = 0;
-    if (node->right != nullptr)
-    {
-      if (node->key == root_->key)
-      {
-        counter ++;
-      }
-      Node* var = node->right;
-      node->right = var->left;
-      var->left = node;
-      node = var;
-      if (counter == 1)
-      {
-        root_ = node;
-        counter = 0;
-      }
-      balance(node);
-    }
-    else if (node->left != nullptr)
-    {
-      if (saveroot == nullptr)
-      {
-        saveroot = root_;
-      }
-      Node* cur = node->left;
-      balance(cur);
-    }
-    root_ = saveroot;
-    return false;
+
   }
 
 }  // namespace itis
