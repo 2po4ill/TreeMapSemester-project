@@ -35,41 +35,20 @@ void decorator_insert_n_items(int n) {
   }
   shuffle(key, n);
   shuffle(value, n);
-  unsigned int start_time = clock();
+
+  //создали перечень ключей и значений
+
+  clock_t start = clock(); //начинаем засекать
   for (int i = 0; i < n; ++i) {
-    tree.Insert(key[i], value[i]);
+    tree.Insert(key[i], value[i]); //вставляем узлы в дерево
   }
-  unsigned int end_time = clock();  // конечное время
-  unsigned int search_time = end_time - start_time;
-  cout << n << " " << setprecision(6) << 1000 * float(search_time) / CLOCKS_PER_SEC << endl;
-}
-void decorator_remove_n_items(int n)
-{
-  Treemap tree;
-
-  int key[n];
-  int value[n];
-
-  for (int i = 0; i < n; ++i) {
-    key[i] = i + 1;
-    value[i] = rand() % 10000000;
-  }
-
-  shuffle(key, n);
-  shuffle(value, n);
-
-  clock_t start = clock();
-  for (int i = 0; i < n; ++i)
-  {
-    tree.Insert(key[i], value[i]);
-  }
-  clock_t end = clock();  // конечное время
+  clock_t end = clock(); //конечное время
   double seconds = ((double)(end - start)) / CLOCKS_PER_SEC;
-  cout << n << " " << seconds << endl;
+  cout << n << " " << seconds << endl; //выводим результаты взависимости от кол-ва узлов
 }
 
-int key[100000000];
-int value[100000000];
+int key[100000000]; // объявляем массив ключей
+int value[100000000]; // объявляем массив значений
 
 void decorator_contains_one_item()
 {
@@ -83,13 +62,13 @@ void decorator_contains_one_item()
   shuffle(key, n);
   shuffle(value, n);
   for (int i = 0; i < n; ++i) {
-    tree.Insert(key[i], value[i]);
+    tree.Insert(key[i], value[i]); //создали дерево над которым будем проводить операции
     if ((i%10000==0) and (i>=100)){
-      clock_t start = clock();
-      tree.Contains(key[i]);
-      clock_t end = clock();
+      clock_t start = clock(); //старт таймера
+      tree.Contains(key[i]); //проверка только добавленного узла спустя 10000 узлов
+      clock_t end = clock(); //конечное время
        double seconds = ((double)(end - start)) / CLOCKS_PER_SEC;
-      printf("%i %f\n", i, seconds);
+      cout << i << " " << seconds << endl; //выводим результаты взависимости от кол-ва узлов
     }
   }
 }
@@ -97,27 +76,26 @@ void decorator_contains_one_item()
 void decorator_remove_one_item() {
   int n = 10000000;
   Treemap tree;
-
-
   for (int i = 0; i < n; ++i) {
     key[i] = i + 1;
     value[i] = rand() % n;
   }
-
   shuffle(key, n);
   shuffle(value, n);
   for (int i = 0; i < n; ++i) {
     tree.Insert(key[i], value[i]);
   }
-  shuffle(key, n);
+
+  //создали дерево над которым будем проводить операции
+
+  shuffle(key, n); //перемешиваем ключи чтобы рандомно удалять узлы
   for (int i = 0; i < n; ++i) {
     if (i%10000 == 0){
-      clock_t start = clock();
-      tree.Remove(key[i]);
-      clock_t end = clock();
+      clock_t start = clock(); //старт таймера
+      tree.Remove(key[i]); //проверяем по времени удаление 10000-ного узла
+      clock_t end = clock(); //конечное время
       double seconds = ((double)(end - start)) / CLOCKS_PER_SEC;
-      //      cout<< i<< " " << seconds<<endl;
-      printf("%i %f\n", n - i, seconds);
+      cout << i << " " << seconds << endl; //выводим результаты взависимости от кол-ва узлов
     }
     else{
       tree.Remove(key[i]);
